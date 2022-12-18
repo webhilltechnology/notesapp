@@ -2,6 +2,8 @@
 {%include 'navigation.html'%}
 {% block contents %}
 
+
+
 <section id="file_upload">
     <div class="container-fluid d-flex justify-content-center align-content-center">
         <form method="post" enctype="multipart/form-data">
@@ -9,6 +11,19 @@
             {{ form.file(class="form-control") }}<br>
             {{ form.submit(class="btn btn-outline-primary btn-lg w-100") }}
         </form>
+    </div>
+</section>
+
+<section id="files">
+    <div class="container-fluid d-flex justify-content-center align-content-center">
+        {% for image in images %}
+        <div class="card" style="width: 18rem;">
+            <img src={{image.image}} class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">{{image.user_id}}</p>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </section>
 

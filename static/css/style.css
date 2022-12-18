@@ -143,5 +143,8 @@ h1 {
 
 #file_upload {
     padding: 10% 7%;
-    height: 200%;
+}
+
+#files {
+    padding: 20% 7%;
 }

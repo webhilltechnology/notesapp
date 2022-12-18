@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for
 from flask_login import login_user, LoginManager, logout_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import app, db
-from models.models import Users, Notes
+from models.models import Users, Notes, Images
 from forms.login import Login
 from forms.signup import Signup
 from mail.mail import welcome
@@ -63,7 +63,8 @@ def signup():
             else:
                 user = Users().query.filter_by(email=form.email.data).first()
                 if user is not None:
-                    flash('Given user email already exists in application. So please login')
+                    flash(
+                        'Given user email already exists in application. So please login')
         except:
             pass
         if user is None:
@@ -88,7 +89,8 @@ def notes():
     form = Note()
     user_notes = Notes().query.filter_by(user_id=int(current_user.id)).all()
     if form.validate_on_submit():
-        user_notes = Notes(user_id=int(current_user.id), title=form.title.data, notes=form.note.data)
+        user_notes = Notes(user_id=int(current_user.id),
+                           title=form.title.data, notes=form.note.data)
         form.title.data = ''
         form.note.data = ''
         db.session.add(user_notes)
@@ -117,21 +119,23 @@ def edit(id):
     form.title.data = user_notes.title
     form.note.data = user_notes.notes
 
-    return render_template('edit.html', form = form)
+    return render_template('edit.html', form=form)
+
 
 @app.route('/delete_notes/<int:id>')
 @login_required
 def delete_notes(id):
     form = Note()
-    user_notes = Notes().query.filter_by(notes_id = id).first()
+    user_notes = Notes().query.filter_by(notes_id=id).first()
     if user_notes is not None:
         db.session.delete(user_notes)
         db.session.commit()
         user_notes = Notes().query.filter_by(user_id=current_user.id).all()
-        return  redirect(url_for('notes',notes=user_notes,form=form))
+        return redirect(url_for('notes', notes=user_notes, form=form))
 
     user_notes = Notes().query.filter_by(user_id=current_user.id).all()
-    return render_template('notes.html',notes=user_notes,form = form)
+    return render_template('notes.html', notes=user_notes, form=form)
+
 
 @app.route('/admin')
 @login_required
@@ -146,28 +150,36 @@ def admin():
 
     return render_template('notes.html', notes=user_notes, form=form)
 
+
 @app.route('/delete_users/<int:id>')
 @login_required
 def delete(id):
-    user = Users().query.filter_by(id = id).first()
+    user = Users().query.filter_by(id=id).first()
     if user is not None:
         db.session.delete(user)
         db.session.commit()
         user = Users().query.all()
-        return redirect(url_for('admin',users=user))
+        return redirect(url_for('admin', users=user))
 
     user = Users().query.all()
     return render_template('admin.html', users=user)
+
 
 @app.route('/Image', methods=['GET', 'POST'])
 @login_required
 def file_upload():
     form = Upload()
+    images = Images().query.filter_by(user_id=int(current_user.id)).all()
+    print(len(images))
     if form.validate_on_submit():
-        form.file.data = ''
-        return redirect(url_for('file_upload', form=form))
+        images = Images(user_id=int(current_user.id), image=form.file.data)
+        db.session.add(images)
+        db.session.commit()
+        images = Images().query.filter_by(user_id=current_user.id).all()
+        return redirect(url_for('file_upload', images=images, form=form))
 
-    return  render_template('image.html', form=form)
+    return render_template('image.html', images=images, form=form)
+
 
 @app.errorhandler(404)
 def error(e):
