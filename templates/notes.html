@@ -1,0 +1,92 @@
+{% extends 'index.html' %}
+{%include 'navigation.html'%}
+{% block contents %}
+
+<section id="notes">
+
+    <div class="d-flex justify-content-center align-items-center">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+            <a type="button" href="{{url_for('notes')}}" class="btn-close" aria-label="Close"></a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="card w-100">
+        <div class="card-body">
+            {% for note in notes %}
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="card">
+                        <div class="card-title">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h3>{{ note.title }}</h3>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex justify-content-end">
+                                        <a class="notebtn" type="button" href="{{ url_for('edit',id=note.notes_id) }}">
+                                            <img src="/static/icons/edit.png" id="edit-icon">
+                                        </a>
+                                        <a class="notebtn" type="button"
+                                            href="{{url_for('delete_notes',id=note.notes_id)}}"><img
+                                                src="/static/icons/bin.png" alt="delete" id="delete-icon"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">{{ note.notes }}</div>
+                    </div>
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+    <div class="notes-add">
+        <div class="contianer-fluid ">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <div class="dropup d-flex justify-content-center align-items-center">
+                    <a type="button" class="fa-solid fa-plus-large" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="/static/icons/plus.png" id="plus-icon">
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">
+                                Create Notes
+                            </button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header  d-flex justify-content-center align-items-center">
+                        <h5 class="modal-title" id="staticBackdropLabel">Create Notes</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            {{ form.hidden_tag() }}
+                            {{ form.title.label(class="form-label") }} {{ form.title(class="form-control") }}<br>
+                            {{ form.note.label(class="form-label") }} {{ form.note(class="form-control") }}<br>
+                            {{ form.submit(class="btn btn-outline-primary btn-lg w-100") }}
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+{% endblock %}

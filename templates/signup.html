@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+{% block contents %}
+<section id="signup" class="d-flex justify-content-center align-items-center">
+    <div class="w-25">
+        <div class="d-flex justify-content-center align-items-center">
+            {% for message in get_flashed_messages() %}
+            {% if 'exists' in message %}
+            <div class="alert alert-warning" role="alert">
+                <a href="{{ url_for('login') }}" class="alert-link">{{ message }}</a>
+            </div>
+            {% else %}
+            <div class="alert alert-success" role="alert">
+                <a href="{{ url_for('login') }}" class="alert-link">{{ message }}</a>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="container">
+            <div class="card ">
+                <div class="d-flex justify-content-center align-items-center">
+                    <h2>Sign Up</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        {{ form.name.label(class="form-label")}} {{ form.name(class="form-control") }}<br>
+                        {{ form.user_name.label(class="form-label")}} {{ form.user_name(class="form-control") }}
+                        <br>
+                        {{ form.email.label(class="form-label")}} {{ form.email(class="form-control") }}<br>
+                        {{ form.password.label(class="form-label")}} {{ form.password(class="form-control") }} <br>
+                        {% for error in form.confirm_password.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div> <br>
+                        {% endfor %}
+                        {{ form.confirm_password.label(class="form-label")}}
+                        {{form.confirm_password(class="form-control")
+                        }} <br>
+                        {{ form.submit(class="btn btn-outline-primary btn-lg w-100") }}
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

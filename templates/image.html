@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{%include 'navigation.html'%}
+{% block contents %}
+
+<section id="file_upload">
+    <div class="container-fluid d-flex justify-content-center align-content-center">
+        <form method="post" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            {{ form.file(class="form-control") }}<br>
+            {{ form.submit(class="btn btn-outline-primary btn-lg w-100") }}
+        </form>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+
+{% block contents %}
+
+{%include 'navigation.html'%}
+
+<section id="admin">
+    <div class="container-fluid">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Email id</th>
+                    <th scope="col">Number of notes</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <th scope="row">{{ user.id }}</th>
+                    <td>{{ user.user_name }}</td>
+                    <td>{{ user. email }}</td>
+                    <td> next update </td>
+                    <td><a type="button" href="{{url_for('delete',id=user.id)}}"><img src="/static/icons/bin.png"
+                                alt="delete" id="delete-icon"></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+
+</section>
+
+{% endblock %}

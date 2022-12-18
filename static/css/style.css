@@ -1,0 +1,147 @@
+* {
+    color: red;
+}
+
+/* Home Page */
+
+#home {
+    width: auto;
+    height: auto;
+    padding: 15% 0;
+}
+
+h1 {
+    font-size: 500%;
+}
+
+/* Login Page */
+
+#login {
+    padding: 10% 0;
+}
+
+.card {
+    border: none;
+}
+
+/* Singup Page */
+
+#signup {
+    padding: 2% 0;
+}
+
+/* Notes Page */
+
+.navbar {
+    padding: 3% 7%;
+}
+
+.nav-item {
+    padding-right: 15px;
+}
+
+
+/* Buttons */
+
+.btns {
+    margin: 15px;
+}
+
+.btn {
+    color: red;
+}
+
+.btn-outline-primary {
+    border-color: red;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active {
+    background-color: red;
+    border-color: white;
+}
+
+/* notes */
+
+#notes {
+    padding: 10% 7%;
+    height: 200%;
+}
+
+.list-group {
+    padding: 1% 0;
+}
+
+.notebtn {
+    padding: 0 10px;
+}
+
+/* notes list */
+
+#edit-icon,
+#delete-icon {
+    width: 25px;
+    height: 25px;
+    background-color: white;
+}
+
+.edit-btn {
+    border: none !important;
+    background-color: white;
+}
+
+
+/*note add */
+
+.notes-add {
+    padding-top: 10px;
+}
+
+
+/* #note is textarea of form */
+#note {
+    height: 300px;
+}
+
+.dropdown-item,
+.dropdown-menu {
+    background-color: red;
+}
+
+.dropdown-menu {
+    transform: translate3d(0, -60px, 0) !important;
+}
+
+
+.dropup {
+    background-color: red;
+    border-radius: 50% !important;
+    height: 60px;
+    width: 60px;
+}
+
+#plus-icon {
+    width: 30px;
+    height: 30px;
+    background-color: red;
+}
+
+.dropdown-item:hover,
+.dropdown-item:active {
+    background-color: red;
+}
+
+
+/* Admin page */
+
+#admin {
+    padding: 10% 7%;
+    height: 200%;
+}
+
+/* Image */
+
+#file_upload {
+    padding: 10% 7%;
+    height: 200%;
+}

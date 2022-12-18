@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+{% block contents %}
+
+
+<section id="login" class="d-flex justify-content-center align-items-center">
+    <div class="w-25">
+        <div class="d-flex justify-content-center align-items-center">
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="container">
+            <div class="card ">
+                <div class="d-flex justify-content-center align-items-center">
+                    <h2>Log In</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        {{ form.user_name.label(class="form-label")}} {{ form.user_name(class="form-control") }}
+                        <br>
+                        {{ form.password.label(class="form-label")}} {{ form.password(class="form-control") }} <br>
+                        {{ form.submit(class="btn btn-outline-primary btn-lg w-100") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
